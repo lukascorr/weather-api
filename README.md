@@ -1,2 +1,2 @@
-# weather-api
-API to get the weather
+# API Weather
+API to get the weather developed in nodejs

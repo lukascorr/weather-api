@@ -6,16 +6,19 @@
   "dependencies": {
     "fastify": "^3.23.1",
     "geoip-lite": "^1.4.2",
+    "ip": "^1.1.5",
     "node-fetch": "2.6.6"
   },
   "devDependencies": {
     "eslint": "^8.2.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.25.3",
-    "nodemon": "^2.0.15"
+    "nodemon": "^2.0.15",
+    "pino-pretty": "^7.2.0",
+    "tap": "^15.1.1"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "tap --reporter=list",
     "dev": "nodemon ./src/index.js"
   },
   "author": "",

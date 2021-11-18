@@ -3,7 +3,10 @@ const appId = '4992420a08c245ad90c31516211811'
 const fetch = require('node-fetch');
 
 const getLocation = async (req) => {
-    return getUserLocation(req)
+    const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+    const geoip = require('geoip-lite');
+
+    return geoip.lookup(ip);
 }
 
 const getLocationWithTime = async (req) => {
@@ -16,7 +19,7 @@ const getLocationWithTime = async (req) => {
 const getLocationWithFutureTime = async (req) => {
     const location = getLocationOfRequest(req)
 
-    const response = await fetch(api_weathermap + '/forecast.json?q=' + location + '&days=5&key=' + appId);
+    const response = await fetch(api_weathermap + '/forecast.json?q=' + location + '&days=3&key=' + appId);
     const data = await response.json()
     delete data.current
 
@@ -24,14 +27,7 @@ const getLocationWithFutureTime = async (req) => {
 }
 
 const getLocationOfRequest = (req) => {
-    return req.params.city ? req.params.city : getUserLocation(req).city
-}
-
-const getUserLocation = (req) => {
-    const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
-    var geoip = require('geoip-lite');
-
-    return geoip.lookup(ip);
+    return req.params.city ? req.params.city : getLocation(req).city
 }
 
 module.exports = {

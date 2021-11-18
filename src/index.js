@@ -1,14 +1,6 @@
-const fastify = require('fastify') ({
+const server = require('./app')({
     logger: true
 })
+var ip = require('ip');
 
-const routes = require('./routes/weather.routes')
-routes.forEach(route => {
-    fastify.route(route)
-})
-
-const start = async () => {
-    await fastify.listen(3000)
-}
-
-start()
+server.listen(3000, ip.address())
